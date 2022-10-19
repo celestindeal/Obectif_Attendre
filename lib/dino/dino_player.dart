@@ -9,7 +9,7 @@ class DinoPlayer extends SpriteAnimationComponent with HasGameRef {
   late final SpriteAnimation _walkingLeftAnimation;
   late final SpriteAnimation _idleAnimation;
 
-  final double _animationSpeed = .15;
+  final double _animationSpeed = .05;
   Direction direction = Direction.none;
 
   @override
@@ -17,7 +17,6 @@ class DinoPlayer extends SpriteAnimationComponent with HasGameRef {
     super.onLoad();
     await _loadAnimations().then((_) => {animation = _idleAnimation});
   }
-
 
   @override
   void update(double dt) {
@@ -28,18 +27,18 @@ class DinoPlayer extends SpriteAnimationComponent with HasGameRef {
   updatePosition(double dt) {
     switch (direction) {
       case Direction.up:
-        position.y --;
+        position.y = position.y - 5;
         break;
       case Direction.down:
-        position.y ++;
+        position.y = position.y + 5;
         break;
       case Direction.left:
         animation = _walkingLeftAnimation;
-        position.x --;
+        position.x = position.x - 5;
         break;
       case Direction.right:
         animation = _walkingRightAnimation;
-        position.x ++;
+        position.x = position.x + 5;
         break;
       case Direction.none:
         animation = _idleAnimation;
@@ -58,6 +57,7 @@ class DinoPlayer extends SpriteAnimationComponent with HasGameRef {
 
     _walkingRightAnimation = spriteSheet.createAnimation(
         row: 0, stepTime: _animationSpeed, from: 10, to: 19);
-    _walkingLeftAnimation = spriteSheet.createAnimation(row: 0, stepTime: _animationSpeed, from: 20, to: 29);
+    _walkingLeftAnimation = spriteSheet.createAnimation(
+        row: 0, stepTime: _animationSpeed, from: 20, to: 29);
   }
 }
